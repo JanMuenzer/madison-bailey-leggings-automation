@@ -1,0 +1,30 @@
+name: Madison Bailey Leggings Automation
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+jobs:
+  run-automation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run autonomous leggings editor
+        run: python scripts/batch-leggings-editor.py
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: edited-images
+          path: output/Add GitHub Actions workflow for autonomous leggings editing
